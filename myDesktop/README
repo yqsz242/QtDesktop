@@ -1,0 +1,14 @@
+这里是程序文件说明文档，请随着项目的开发随时更改此文档！
+
+main.cpp 是main函数入口，基本无需改动
+mainwindow.cpp和mainwindow.h为主窗体的类文件，主要功能包括右键菜单等都在此处更改
+
+说明：
+Qt项目建立方法
+将main.cpp,main.window.cpp,mainwindow.h放在一起，输入命令：
+    qmake -project
+生成项目 myDesktop.pro,接着输入命令：
+    qmake myDesktop.pro
+生成Makefile等文件，以上步骤只需执行一次，接下来就可以编译了：
+    make
+得到myDesktop可执行文件
