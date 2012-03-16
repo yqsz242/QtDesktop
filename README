@@ -9,8 +9,8 @@
 支持三种访问协议：
 
 * HTTP协议: https://github.com/yqsz242/QtDesktop 。
-* Git协议: `git://github.com/yqsz242/QtDesktop.git` 。
-* SSH协议: `ssh://git@github.com/yqsz242/QtDesktop.git` 。
+* Git协议: git://github.com/yqsz242/QtDesktop.git 。
+* SSH协议: ssh://git@github.com/yqsz242/QtDesktop.git 。
 
 ## 克隆版本库
 
