@@ -8,5 +8,11 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += mainwindow.h
-SOURCES += main.cpp mainwindow.cpp
+HEADERS += mainwindow.h \
+    setdesktop.h \
+    setdesktop.h
+SOURCES += main.cpp mainwindow.cpp \
+    setdesktop.cpp
+
+FORMS += \
+    setdesktop.ui
