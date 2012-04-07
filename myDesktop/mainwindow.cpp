@@ -12,11 +12,32 @@ MainWindow::MainWindow()
     ((QMainWindow*)this)->showFullScreen();
     QPalette palette;
     background = new QPixmap("image/01.jpg");
-    palette.setBrush(((QMainWindow*)this)->backgroundRole(), QBrush(*background));
+    QImage *asd = new QImage("image/01.jpg");
+    palette.setBrush(((QMainWindow*)this)->backgroundRole(), QBrush(*asd));
     ((QMainWindow*)this)->setPalette(palette);
 
     createActions();
     createMenus();
+    createBar();
+}
+
+void MainWindow::createBar(){
+    barLabel = new QLabel;
+    barLabel->setMinimumSize(barLabel->sizeHint());
+    barLabel->setAlignment(Qt::AlignHCenter);
+
+    QDateTime time = QDateTime::currentDateTime();
+    barLabel->setText(time.toString("HH:mm:ss  "));
+    statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
+    statusBar()->addPermanentWidget(barLabel);
+    statusBar()->setMinimumHeight(25);
+    //statusBar()->addWidget(barLabel);
+    barLabel->installEventFilter(this);
+    statusBar()->installEventFilter(this);
+    readTimer = new QTimer(this);   //创建并启动定时器
+    connect(readTimer, SIGNAL(timeout()), this, SLOT(flashTime()));
+       //每当定时器超时时调用函数slotReadFile读取文件
+    readTimer->start(100);
 }
 
 void MainWindow::createActions() {
@@ -78,6 +99,34 @@ void MainWindow::mousePressEvent ( QMouseEvent * e )//鼠标单击事件响应
    }
 }
 
+void MainWindow::flashTime(){
+    readTimer->stop();
+    QDateTime time = QDateTime::currentDateTime();
+    barLabel->setText(time.toString("HH:mm:ss  "));
+    readTimer->start(1);    //重新启动定时器
+}
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == barLabel) {
+        if (event->type() == QEvent::MouseButtonDblClick) { //随便判断什么事件都可以了
+            QMessageBox::information(NULL, QString::fromLocal8Bit("time"), QString::fromLocal8Bit(barLabel->text().toLocal8Bit()), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+            return true;
+        } else {
+            return false;
+        }
+    } else if(obj == statusBar()){
+        if (event->type() == QEvent::MouseButtonDblClick) { //随便判断什么事件都可以了
+            QMessageBox::information(NULL, QString::fromLocal8Bit("bar"), QString::fromLocal8Bit("This is a bar"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+            return true;
+        } else {
+            return false;
+        }
+    }else{
+        // pass the event on to the parent class
+        return QMainWindow::eventFilter(obj, event);
+    }
+}
 
 void MainWindow::Copy(){
 
@@ -114,5 +163,5 @@ void MainWindow::Exit(){
 }
 
 void MainWindow::gvim(){
-    system("gvim\n");
+    system("xterm\n");
 }

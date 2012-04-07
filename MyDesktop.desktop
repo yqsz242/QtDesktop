@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Encoding=UTF-8
+Type=XSession
+Exec=myDesktop
+TryExec=myDesktop
+Name=MyDesktop
+Comment=My Qt4-X11 Desktop-Window Manager

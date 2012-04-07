@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <setdesktop.h>
+#include <QProcess>
+#include "mylabel.h"
 
 class QAction;
 class QLabel;
@@ -24,10 +26,15 @@ private slots:
     void Cut();
     void Paste();
     void Desktop();
+    void flashTime();
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     void createMenus();
     void createActions();
+    void createBar();
     void mousePressEvent ( QMouseEvent * e );
 
     QMenu *fileMenu;
@@ -41,6 +48,9 @@ private:
     QAction *paste;
     QAction *desktop;
     QPixmap *background;
+    QLabel *barLabel;
+    QTimer *readTimer;
+
 };
 
 #endif
