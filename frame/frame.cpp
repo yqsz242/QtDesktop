@@ -8,83 +8,7 @@
 #include <iostream>
 #include <list>
 
-
-class XWindowFinder {
-public:
-  XWindowFinder(unsigned long pid, Display *display=NULL): _display(display), _pid(pid) {
-    if(_display==NULL) _display = XOpenDisplay(NULL);
-
-    _atomPID = XInternAtom(_display, "_NET_WM_PID", True);
-    if(_atomPID == None) {
-      std::cout << "No such atom" << std::endl;
-      return;
-    }
-
-    Window wRoot = XDefaultRootWindow(_display);
-    this->search(wRoot);
-  }
-
-  const std::vector<Window> &result() const { return _result; }
-
-  std::vector<Window> getwid(){return _result;}
-
-  void print(){
-    for(std::vector<Window>::const_iterator it=_result.begin(); it !=_result.end(); it++)
-      //std::cout << "Window #" << (unsigned long)(*it) << std::endl;
-        qDebug()<<"Window #" << (unsigned long)(*it);
-  }
-
-private:
-    unsigned long  _pid;
-    Atom           _atomPID;
-    Display       *_display;
-    std::vector<Window>   _result;
-
-    unsigned long getPid(Window w){
-        Atom           type;
-        int            format;
-        unsigned long  nItems;
-        unsigned long  bytesAfter;
-        unsigned char *propPID = 0;
-
-        if(Success == XGetWindowProperty(_display, w, _atomPID, 0, 1, False, XA_CARDINAL,
-                                         &type, &format, &nItems, &bytesAfter, &propPID))
-        {
-            if(propPID != 0) {
-              unsigned long pid = *((unsigned long *)propPID);
-              XFree(propPID);
-              return pid;
-            }
-        }
-        return 0;
-    }
-
-    bool search(Window w) {
-      bool found = false;
-
-      unsigned long propPID = this->getPid(w);
-      if(_pid == propPID){
-        _result.push_back(w);
-        return true;
-      }
-
-      // Recurse into child windows.
-      Window    wRoot;
-      Window    wParent;
-      Window   *wChild;
-      unsigned  nChildren;
-      if(0 != XQueryTree(_display, w, &wRoot, &wParent, &wChild, &nChildren)) {
-        for(unsigned i = 0; i < nChildren; i++){
-          found = search(wChild[i]) || found;
-          // found = found || search(wChild[i]);
-          //if(found) break;
-        }
-      }
-      return found;
-    }
-};
-
-
+using namespace std;
 
 Frame::Frame(QWidget *parent) : QFrame(parent)
 {
@@ -99,15 +23,19 @@ Frame::Frame(QWidget *parent) : QFrame(parent)
     //qDebug()<<a;
     int pp = p->pid();
     qDebug()<<pp;
-    XWindowFinder finder(pp);
-    finder.print();
-    std::vector<Window> tt;
-    tt=finder.getwid();
-    qDebug()<<tt.size();
-    std::vector<Window>::iterator hehe = tt.begin();
-    qDebug()<<*hehe;
-    c_win = *hehe;
-    qDebug()<<c_win;
+    XWindowFinder *finder;
+    finder = new XWindowFinder(pp);
+    while(!finder->findresult()){
+        finder = new XWindowFinder(pp);
+    }
+    finder->print();
+    //std::vector<Window> tt;
+    //tt=finder.getwid();
+    //qDebug()<<tt.size();
+    //std::vector<Window>::iterator hehe = tt.begin();
+    //qDebug()<<*hehe;
+    //c_win = *hehe;
+    //qDebug()<<c_win;
     //XResizeWindow(QX11Info::display(), c_win, 800, 600); //client
     //c_win=p->pid();
 

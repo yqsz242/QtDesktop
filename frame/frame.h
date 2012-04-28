@@ -4,6 +4,7 @@
 #include "defs.h"
 #include "border.h"
 #include "header.h"
+#include "xwindowfinder.h"
 
 class Header;
 

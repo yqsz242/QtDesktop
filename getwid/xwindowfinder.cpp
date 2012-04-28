@@ -1,3 +1,5 @@
+#include "xwindowfinder.h"
+
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -18,14 +20,13 @@ using namespace std;
 * Reference:
 *  http://stackoverflow.com/questions/151407/how-to-get-an-x11-window-from-a-process-id
 */
-class XWindowFinder {
-public:
-  XWindowFinder(unsigned long pid, Display *display=NULL): _display(display), _pid(pid) {
+
+  XWindowFinder::XWindowFinder(unsigned long pid, Display *display): _display(display), _pid(pid) {
     if(_display==NULL) _display = XOpenDisplay(NULL);
 
     _atomPID = XInternAtom(_display, "_NET_WM_PID", True);
     if(_atomPID == None) {
-      std::cout << "No such atom" << std::endl;
+        cout << "No such atom" <<endl;
       return;
     }
 
@@ -33,43 +34,35 @@ public:
     this->search(wRoot);
   }
 
-  const std::vector<Window> &result() const { return _result; }
-
-  void print(){
+  void XWindowFinder::print(){
     for(std::vector<Window>::const_iterator it=_result.begin(); it !=_result.end(); it++)
-      std::cout << "Window #" << (unsigned long)(*it) << std::endl;
+        cout << "Window #" << (unsigned long)(*it) <<endl;
   }
 
-private:
-    unsigned long  _pid;
-    Atom           _atomPID;
-    Display       *_display;
-    std::vector<Window>   _result;
 
-    unsigned long getPid(Window w){
-    	Atom           type;
-    	int            format;
-    	unsigned long  nItems;
-    	unsigned long  bytesAfter;
-    	unsigned char *propPID = 0;
+    unsigned long XWindowFinder::getPid(Window w){
+        Atom           type;
+        int            format;
+        unsigned long  nItems;
+        unsigned long  bytesAfter;
+        unsigned char *propPID = 0;
 
-    	if(Success == XGetWindowProperty(_display, w, _atomPID, 0, 1, False, XA_CARDINAL,
-    	                                 &type, &format, &nItems, &bytesAfter, &propPID))
-    	{
-    	    if(propPID != 0) {
+        if(Success == XGetWindowProperty(_display, w, _atomPID, 0, 1, False, XA_CARDINAL,
+                                         &type, &format, &nItems, &bytesAfter, &propPID))
+        {
+            if(propPID != 0) {
               unsigned long pid = *((unsigned long *)propPID);
-    	      XFree(propPID);
+              XFree(propPID);
               return pid;
             }
         }
         return 0;
     }
 
-    bool search(Window w) {
+    bool XWindowFinder::search(Window w) {
       bool found = false;
 
       unsigned long propPID = this->getPid(w);
-      cout<< propPID<<endl;
       if(_pid == propPID){
         _result.push_back(w);
         return true;
@@ -89,16 +82,4 @@ private:
       }
       return found;
     }
-};
 
-int main(int argc, char **argv){
-
-  if(argc>=3 && strcmp(argv[1],"pid")==0){
-    int pid = atoi(argv[2]);
-    cout<<pid<<endl;
-    XWindowFinder finder(pid);
-    finder.print();
-    return 0;
-  }
-  return 0;
-}
