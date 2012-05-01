@@ -18,6 +18,7 @@ public:
     Frame(QWidget *parent=0);
     ~Frame();
     void init();
+    void read_settings();
     void update_style();
     void create_borders();
     QString cl_name()
@@ -62,6 +63,7 @@ private:
     int top_bdr_height;         // parent top border height
     int bottom_bdr_height;      // parent top border height
     QPoint mousepos;            // mouse position at button press
+    int c_pid;
     WId c_win;                  // client window
     QString frame_type;         // frame type (Normal, Splash, Dialog, Desktop..)
     Header *tm_bdr;             // top mid window border (for window move)

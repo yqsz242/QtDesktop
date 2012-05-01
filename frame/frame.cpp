@@ -12,33 +12,13 @@ using namespace std;
 
 Frame::Frame(QWidget *parent) : QFrame(parent)
 {
+
     init();
     create_borders();
-    QProcess *p;
-    p = new QProcess();
-    //p.startDetached();
-    p->start("xterm");
-    //p.startDetached("gvim");
-    //QString a=QString::number(p->pid());
-    //qDebug()<<a;
-    int pp = p->pid();
-    qDebug()<<pp;
-    XWindowFinder *finder;
-    finder = new XWindowFinder(pp);
-    while(!finder->findresult()){
-        finder = new XWindowFinder(pp);
-    }
-    finder->print();
-    //std::vector<Window> tt;
-    //tt=finder.getwid();
-    //qDebug()<<tt.size();
-    //std::vector<Window>::iterator hehe = tt.begin();
-    //qDebug()<<*hehe;
-    //c_win = *hehe;
-    //qDebug()<<c_win;
-    //XResizeWindow(QX11Info::display(), c_win, 800, 600); //client
-    //c_win=p->pid();
-
+    update_style();
+    XReparentWindow(QX11Info::display(), c_win, winId(), 2, top_bdr_height);
+    //resize(600, 400);
+    //XResizeWindow(QX11Info::display(), c_win, 800, 600);
 }
 
 Frame::~Frame()
@@ -47,7 +27,26 @@ Frame::~Frame()
 
 void Frame::init()
 {
-    c_win;
+    QProcess *p;
+    p = new QProcess();
+    p->start("xterm");
+    c_pid = p->pid();
+    qDebug()<<c_pid;
+    XWindowFinder *finder;
+    finder = new XWindowFinder(c_pid);
+    while(!finder->findresult()){
+        delete finder;
+        finder = new XWindowFinder(c_pid);
+    }
+    finder->print();
+    std::vector<Window> tt;
+    tt = finder->result();
+    std::vector<Window>::iterator hehe = tt.begin();
+    c_win = *hehe;
+}
+
+void Frame::read_settings()
+{
     title_color = QColor(255,0,0);         // frame title color
     header_active_pix = "active";  // frame header pixmap
     header_inactive_pix = "inactive";// frame header pixmap
@@ -59,23 +58,32 @@ void Frame::init()
     QImage img(tt, 10, 10, QImage::Format_ARGB32);
     wicon = QPixmap::fromImage(img);             // window icon
     wm_name = "My Frame";            // WM_NAME property or res_name
-    diff_border_h=0;
-    diff_border_w=0;
+    diff_border_h=top_bdr_height+bottom_bdr_height;
+    diff_border_w=2;
 }
 
 void Frame::update_style()
 {
-    //read_settings();
-    //tl_bdr->setFixedSize(top_bdr_height, top_bdr_height);
-    //tr_bdr->setFixedSize(top_bdr_height, top_bdr_height);
+    read_settings();
+    tl_bdr->setFixedSize(top_bdr_height, top_bdr_height);
+    tr_bdr->setFixedSize(top_bdr_height, top_bdr_height);
     //tm_bdr->set_pixmap(QPixmap(header_active_pix), QPixmap(header_inactive_pix), title_color);
-    //tm_bdr->setFixedHeight(top_bdr_height);
-    //bm_bdr->setFixedHeight(bottom_bdr_height);
-    //bl_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
-    //br_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
+    tm_bdr->setFixedHeight(top_bdr_height);
+    bm_bdr->setFixedHeight(bottom_bdr_height);
+    bl_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
+    br_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
     //get_client_geometry();
+    XWindowAttributes attr;
+    XGetWindowAttributes(QX11Info::display(), c_win, &attr);
+    int client_x = attr.x;
+    int client_y = attr.y;
+    int client_w = attr.width;
+    int client_h = attr.height;
     //set_frame_geometry();
-    //XMoveResizeWindow(QX11Info::display(), c_win, lateral_bdr_width, top_bdr_height+3, client_w, client_h); // update client
+    move(client_x, client_y);
+    resize(client_w+diff_border_w*3, client_h+diff_border_h);
+    //XResizeWindow(QX11Info::display(), c_win, client_w-diff_border_w, client_h-diff_border_h); //client
+    //XMoveWindow(QX11Info::display(), c_win, client_x+diff_border_w, client_y+diff_border_h);
     //resize(frame_w, frame_h); //update frame
 }
 
@@ -175,6 +183,7 @@ void Frame::move_top_mid(QMouseEvent *event)
 {
     QPoint p(event->globalPos()-mousepos);
     move(p.x(), p.y());
+    //XMoveWindow(QX11Info::display(), c_win, p.x(), p.y());
 }
 
 ////////// BOTTOM LEFT RESIZE //////////////
@@ -192,8 +201,18 @@ void Frame::move_bottom_left(QMouseEvent *event)
     //move and resize parent
     move(resx, y());
     resize(resw, resh);
-    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
+    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w*3, resh-diff_border_h); //client
+    //XMoveWindow(QX11Info::display(), c_win, resx, y());
     mousepos = event->globalPos();
+    //XWindowChanges a;
+    //a.x = resx;
+    //a.y = y();
+    //a.height = resw-diff_border_w;
+    //a.width = resh-diff_border_h;
+    //a.stack_mode = Above;
+    //a.sibling =c_bdr->winId();
+    //cout<<c_bdr->winId()<<endl;
+    // XConfigureWindow(QX11Info::display(), c_win, CWSibling|CWStackMode, &a );
 }
 
 ////////// BOTTOM RIGHT RESIZE //////////////
@@ -211,7 +230,7 @@ void Frame::move_bottom_right(QMouseEvent *event)
     //move and resize parent
     move(x(), y());
     resize(resw, resh);
-    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
+    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w*3, resh-diff_border_h); //client
     mousepos = event->globalPos();
 }
 
@@ -230,7 +249,7 @@ void Frame::move_bottom_mid(QMouseEvent *event)
     //move and resize parent
     move(x(), y());
     resize(resw, resh);
-    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h);
+    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w*3, resh-diff_border_h);
     mousepos = event->globalPos();
 }
 
@@ -249,7 +268,7 @@ void Frame::move_right(QMouseEvent *event)
     //move and resize parent
     move(x(), y());
     resize(resw, resh);
-    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
+    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w*3, resh-diff_border_h); //client
     mousepos = event->globalPos();
 }
 
@@ -269,7 +288,8 @@ void Frame::move_left(QMouseEvent *event)
     //move and resize parent
     move(resx, y());
     resize(resw, resh);
-    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
+    XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w*3, resh-diff_border_h); //client
+    //XMoveWindow(QX11Info::display(), c_win, resx, y());
     mousepos = event->globalPos();
 }
 
