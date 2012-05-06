@@ -2,10 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtGui>
+//#include <QtGui>
 #include <setdesktop.h>
 #include <QProcess>
 #include "mylabel.h"
+#include "frame.h"
+
+#include "defs.h"
 
 class QAction;
 class QLabel;
@@ -50,7 +53,8 @@ private:
     QPixmap *background;
     QLabel *barLabel;
     QTimer *readTimer;
-
+    QVector<Frame*> *procs;
+    QVector<QLabel*> *proc_bars;
 };
 
 #endif

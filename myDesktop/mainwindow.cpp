@@ -16,6 +16,9 @@ MainWindow::MainWindow()
     palette.setBrush(((QMainWindow*)this)->backgroundRole(), QBrush(*asd));
     ((QMainWindow*)this)->setPalette(palette);
 
+    procs = new QVector<Frame*>();
+    proc_bars = new QVector<QLabel*>();
+
     createActions();
     createMenus();
     createBar();
@@ -31,6 +34,10 @@ void MainWindow::createBar(){
     statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
     statusBar()->addPermanentWidget(barLabel);
     statusBar()->setMinimumHeight(25);
+    statusBar()->setAutoFillBackground(true);
+    QPalette palette;
+    palette.setColor(QPalette::Active, QPalette::Background, QColor(212,208,200));
+    statusBar()->setPalette(palette);
     //statusBar()->addWidget(barLabel);
     barLabel->installEventFilter(this);
     statusBar()->installEventFilter(this);
@@ -41,8 +48,8 @@ void MainWindow::createBar(){
 }
 
 void MainWindow::createActions() {
-    Gvim = new QAction(tr("&Gvim"),this);
-    Gvim->setStatusTip(tr("Gvim"));
+    Gvim = new QAction(tr("&Xterm"),this);
+    Gvim->setStatusTip(tr("xterm"));
     connect(Gvim,SIGNAL(triggered()),this,SLOT(gvim()));
     shutdown = new QAction(tr("&shutdown"),this);
     shutdown->setStatusTip(tr("shut down"));
@@ -108,6 +115,20 @@ void MainWindow::flashTime(){
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
+    QVector<Frame*>::iterator it1 = procs->begin();
+    for(QVector<QLabel*>::iterator it2 = proc_bars->begin();it2!=proc_bars->end();it2++)
+    {
+        if(obj == (*it2))
+        {
+            if (event->type() == QEvent::MouseButtonPress)
+            {
+                (*it1)->active();
+                return true;
+            }
+            break;
+        }
+        it1++;
+    }
     if (obj == barLabel) {
         if (event->type() == QEvent::MouseButtonDblClick) { //随便判断什么事件都可以了
             QMessageBox::information(NULL, QString::fromLocal8Bit("time"), QString::fromLocal8Bit(barLabel->text().toLocal8Bit()), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
@@ -117,6 +138,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         }
     } else if(obj == statusBar()){
         if (event->type() == QEvent::MouseButtonDblClick) { //随便判断什么事件都可以了
+            cout<<obj<<' '<<statusBar()<<endl;
             QMessageBox::information(NULL, QString::fromLocal8Bit("bar"), QString::fromLocal8Bit("This is a bar"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
             return true;
         } else {
@@ -163,5 +185,20 @@ void MainWindow::Exit(){
 }
 
 void MainWindow::gvim(){
-    system("xterm\n");
+    Frame *myFrame = new Frame("xterm",this);
+    myFrame->show();
+    procs->push_back(myFrame);
+    QLabel* pbar = new QLabel;
+    pbar->setFixedSize(50,23);
+    proc_bars->push_back(pbar);
+    pbar->setAutoFillBackground (true);
+    QPalette palette;
+    palette.setColor(QPalette::Active, QPalette::Background, QColor(64,64,64));
+    pbar->setPalette(palette);
+    pbar->installEventFilter(this);
+    statusBar()->addPermanentWidget(pbar);
 }
+
+//void MainWindow::active(){
+    //barLabel = new QLabel;
+//}
