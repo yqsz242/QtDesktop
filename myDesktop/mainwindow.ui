@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>869</width>
+    <height>434</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QListView" name="listView">
+       <property name="contextMenuPolicy">
+        <enum>Qt::ActionsContextMenu</enum>
+       </property>
+      </widget>
+      <widget class="QTableView" name="tableView"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>869</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_New_File"/>
+    <addaction name="action_New_Folder"/>
+    <addaction name="separator"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="actionCut_T"/>
+    <addaction name="actionCopy_C"/>
+    <addaction name="actionPaste_P"/>
+    <addaction name="action_D"/>
+    <addaction name="actionRename_R"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_About"/>
+    <addaction name="action_About_Qt"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Recoil"/>
+   <addaction name="action_Onward"/>
+   <addaction name="action_Up"/>
+   <addaction name="action_D"/>
+   <addaction name="actionCut_T"/>
+   <addaction name="actionCopy_C"/>
+   <addaction name="actionPaste_P"/>
+   <addaction name="action_dis"/>
+   <addaction name="Proper"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="mainToolBar1">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <widget class="QTreeView" name="treeView"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="action_New_File">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/new.png</normaloff>images/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New File</string>
+   </property>
+  </action>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionCut_T">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/cut.PNG</normaloff>images/cut.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Cut(&amp;T)</string>
+   </property>
+   <property name="toolTip">
+    <string>Cut</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionCopy_C">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/copy.png</normaloff>images/copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Copy(&amp;C)</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste_P">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/paste.png</normaloff>images/paste.png</iconset>
+   </property>
+   <property name="text">
+    <string>Paste(&amp;P)</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionRename_R">
+   <property name="text">
+    <string>Rename(&amp;R)</string>
+   </property>
+   <property name="toolTip">
+    <string>Rename</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="action_New_Folder">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/open.png</normaloff>images/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New Folder</string>
+   </property>
+  </action>
+  <action name="action_Recoil">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/recoil.PNG</normaloff>image/recoil.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Recoil</string>
+   </property>
+  </action>
+  <action name="action_Onward">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/onward.PNG</normaloff>images/onward.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Onward</string>
+   </property>
+  </action>
+  <action name="action_Up">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/up.PNG</normaloff>images/up.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Up</string>
+   </property>
+   <property name="shortcut">
+    <string>Backspace</string>
+   </property>
+  </action>
+  <action name="action_dis">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/print.png</normaloff>images/print.png</iconset>
+   </property>
+   <property name="text">
+    <string>显示侧边栏</string>
+   </property>
+   <property name="toolTip">
+    <string>显示侧边栏</string>
+   </property>
+  </action>
+  <action name="Proper">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/bookmark-new.png</normaloff>images/bookmark-new.png</iconset>
+   </property>
+   <property name="text">
+    <string>属性</string>
+   </property>
+   <property name="toolTip">
+    <string>属性</string>
+   </property>
+  </action>
+  <action name="action_About_Qt">
+   <property name="text">
+    <string>&amp;About Qt</string>
+   </property>
+  </action>
+  <action name="action_D">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/edit-delete.png</normaloff>images/edit-delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>删除(&amp;D)</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+Del</string>
+   </property>
+  </action>
+  <action name="action_hide">
+   <property name="text">
+    <string>显示隐藏文件</string>
+   </property>
+   <property name="toolTip">
+    <string>显示隐藏文件</string>
+   </property>
+  </action>
+  <action name="action_nohide">
+   <property name="text">
+    <string>不显示隐藏文件</string>
+   </property>
+   <property name="toolTip">
+    <string>不显示隐藏文件</string>
+   </property>
+  </action>
+  <action name="action_terminal">
+   <property name="text">
+    <string>在终端中打开(&amp;T)</string>
+   </property>
+   <property name="toolTip">
+    <string>在终端中打开</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

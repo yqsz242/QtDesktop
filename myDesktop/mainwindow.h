@@ -6,7 +6,12 @@
 #include <setdesktop.h>
 #include <QProcess>
 #include "mylabel.h"
-
+#include "filesystem.h"
+#include "properdialog.h"
+#include <QtGui/QToolBar>
+#include<QtGui/QWidget>
+#include<QtGui/QMenuBar>
+#include<QDialog>
 class QAction;
 class QLabel;
 
@@ -27,6 +32,7 @@ private slots:
     void Paste();
     void Desktop();
     void flashTime();
+    void showFileDialog();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
@@ -44,13 +50,16 @@ private:
     QAction *exit;
     QLabel *label;
     QAction *copy;
+    QAction *openFile;
     QAction *cut;
     QAction *paste;
     QAction *desktop;
     QPixmap *background;
     QLabel *barLabel;
     QTimer *readTimer;
-
+    QPushButton *desk_top;
+    QWidget *centralWidget;
+    fileSystem *fileS;
 };
 
 #endif

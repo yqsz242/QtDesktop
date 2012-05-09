@@ -15,10 +15,25 @@ MainWindow::MainWindow()
     QImage *asd = new QImage("image/01.jpg");
     palette.setBrush(((QMainWindow*)this)->backgroundRole(), QBrush(*asd));
     ((QMainWindow*)this)->setPalette(palette);
-
+    //this->addDockWidget();
+    centralWidget=new QWidget(this);
+    desk_top=new QPushButton(centralWidget);
+    desk_top->setText(QString::fromUtf8("我的电脑"));
+    desk_top->setGeometry(QRect(10, 0, 121, 81));
+    this->setCentralWidget(centralWidget);
+    fileS=new fileSystem();
+    //fileS->setObjectName();
+    connect(this->desk_top,SIGNAL(clicked()),this,SLOT(showFileDialog()));
     createActions();
     createMenus();
     createBar();
+
+}
+void MainWindow::showFileDialog()
+{
+
+    fileS->show();
+    qDebug("adsfas");
 }
 
 void MainWindow::createBar(){
@@ -62,6 +77,11 @@ void MainWindow::createActions() {
     desktop = new QAction(tr("&Desktop"),this);
     desktop->setStatusTip(tr("Set your desktop"));
     connect(desktop,SIGNAL(triggered()),this,SLOT(Desktop()));
+    QIcon icon ;
+    icon.addFile(QString::fromUtf8("images/desktop.png"),QSize(),QIcon::Normal,QIcon::Off);
+    openFile=new QAction(tr("local file system"),this);
+    desktop->setStatusTip(tr("open local file system"));
+    openFile->setIcon(icon);
 }
 
 void MainWindow::createMenus() {
@@ -74,6 +94,7 @@ void MainWindow::createMenus() {
     fileMenu->addAction(Gvim);
     fileMenu->addSeparator();
     fileMenu->addAction(shutdown);
+    fileMenu->addAction(openFile);
     fileMenu->addSeparator();
     fileMenu->addAction(exit);
 }

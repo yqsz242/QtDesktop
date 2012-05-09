@@ -11,10 +11,18 @@ INCLUDEPATH += .
 HEADERS += mainwindow.h \
     setdesktop.h \
     setdesktop.h \
-    mylabel.h
+    mylabel.h \
+    filesystem.h \
+    model.h \
+    proper.h
 SOURCES += main.cpp mainwindow.cpp \
     setdesktop.cpp \
-    mylabel.cpp
+    mylabel.cpp \
+    filesystem.cpp \
+    model.cpp \
+    proper.cpp
 
 FORMS += \
-    setdesktop.ui
+    setdesktop.ui \
+    filesystem.ui \
+    proper.ui

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fileSystem</class>
+ <widget class="QMainWindow" name="fileSystem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>我的电脑</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QSplitter" name="splitter">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>70</y>
+      <width>512</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <widget class="QListView" name="listView"/>
+    <widget class="QTableView" name="tableView"/>
+   </widget>
+   <widget class="QDockWidget" name="dockWidget_2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>161</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="floating">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="dockWidgetContents_2">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <widget class="QTreeView" name="treeView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>0</y>
+        <width>121</width>
+        <height>221</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Recoil"/>
+   <addaction name="action_Onward"/>
+   <addaction name="action_Up"/>
+   <addaction name="action_D"/>
+   <addaction name="actionCut_T"/>
+   <addaction name="actionCopy_C"/>
+   <addaction name="actionPaste_P"/>
+   <addaction name="action_dis"/>
+   <addaction name="Proper"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar1">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QMenuBar" name="mainMenBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_New_File"/>
+    <addaction name="action_New_Folder"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="actionRename_R"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_About"/>
+    <addaction name="action_About_Qt"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <action name="action_Recoil">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/recoil.PNG</normaloff>image/recoil.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>13123</string>
+   </property>
+  </action>
+  <action name="action_Onward">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/onward.PNG</normaloff>image/onward.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>gagfa</string>
+   </property>
+  </action>
+  <action name="action_Up">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/up.PNG</normaloff>image/up.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>567567567</string>
+   </property>
+  </action>
+  <action name="actionPaste_P">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/paste.png</normaloff>image/paste.png</iconset>
+   </property>
+   <property name="text">
+    <string>aadsfag</string>
+   </property>
+  </action>
+  <action name="action_D">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/edit-delete.png</normaloff>image/edit-delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>adf</string>
+   </property>
+  </action>
+  <action name="actionCut_T">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/cut.PNG</normaloff>image/cut.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>fad</string>
+   </property>
+  </action>
+  <action name="actionCopy_C">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/copy.png</normaloff>image/copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>ag</string>
+   </property>
+  </action>
+  <action name="action_dis">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/print.png</normaloff>image/print.png</iconset>
+   </property>
+   <property name="text">
+    <string>agafds</string>
+   </property>
+  </action>
+  <action name="action_New_File">
+   <property name="text">
+    <string>New File</string>
+   </property>
+  </action>
+  <action name="action_New_Folder">
+   <property name="text">
+    <string>&amp;New Folder</string>
+   </property>
+  </action>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="actionRename_R">
+   <property name="text">
+    <string>&amp;Rename(R)</string>
+   </property>
+  </action>
+  <action name="Proper">
+   <property name="icon">
+    <iconset>
+     <normaloff>image/bookmark-new.png</normaloff>image/bookmark-new.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="action_hide">
+   <property name="text">
+    <string>显示隐藏文件</string>
+   </property>
+  </action>
+  <action name="action_nohide">
+   <property name="text">
+    <string>不显示隐藏文件</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>在终端打开</string>
+   </property>
+  </action>
+  <action name="action_terminal">
+   <property name="text">
+    <string>在终端显示</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="action_About_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
