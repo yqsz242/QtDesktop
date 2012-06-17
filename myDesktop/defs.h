@@ -89,9 +89,17 @@
 #include <QFontDatabase>
 #include <QDockWidget>
 
+<<<<<<< HEAD
 /*#include <X11/X.h>
+=======
+#include <X11/X.h>
+>>>>>>> 2b6bbdfd04d126a911f79bf21b40df8acc7f39cd
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
+<<<<<<< HEAD
 #include <X11/extensions/shape.h>*/
+=======
+#include <X11/extensions/shape.h>
+>>>>>>> 2b6bbdfd04d126a911f79bf21b40df8acc7f39cd

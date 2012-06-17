@@ -21,6 +21,18 @@ SOURCES += main.cpp mainwindow.cpp \
     filesystem.cpp \
     model.cpp \
     proper.cpp
+    xwindowfinder.h \
+    header.h \
+    frame.h \
+    defs.h \
+    border.h
+SOURCES += main.cpp mainwindow.cpp \
+    setdesktop.cpp \
+    mylabel.cpp \
+    xwindowfinder.cpp \
+    header.cpp \
+    frame.cpp \
+    border.cpp
 
 FORMS += \
     setdesktop.ui \
