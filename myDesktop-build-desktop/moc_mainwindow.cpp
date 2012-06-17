@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Tue May 8 10:58:28 2012
+** Created: Wed Jun 13 21:20:36 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -40,6 +40,7 @@ static const uint qt_meta_data_MainWindow[] = {
       58,   11,   11,   11, 0x08,
       68,   11,   11,   11, 0x08,
       80,   11,   11,   11, 0x08,
+      97,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -47,7 +48,7 @@ static const uint qt_meta_data_MainWindow[] = {
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0shutDown()\0Exit()\0gvim()\0"
     "Copy()\0Cut()\0Paste()\0Desktop()\0"
-    "flashTime()\0showFileDialog()\0"
+    "flashTime()\0showFileDialog()\0showTask()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -88,9 +89,10 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 6: Desktop(); break;
         case 7: flashTime(); break;
         case 8: showFileDialog(); break;
+        case 9: showTask(); break;
         default: ;
         }
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

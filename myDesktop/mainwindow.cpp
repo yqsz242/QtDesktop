@@ -17,18 +17,49 @@ MainWindow::MainWindow()
     ((QMainWindow*)this)->setPalette(palette);
     //this->addDockWidget();
     centralWidget=new QWidget(this);
-    desk_top=new QPushButton(centralWidget);
+   /* desk_top=new QPushButton(centralWidget);
     desk_top->setText(QString::fromUtf8("我的电脑"));
     desk_top->setGeometry(QRect(10, 0, 121, 81));
+    task=new QPushButton(centralWidget);
+    task->setText(QString::fromUtf8("任务管理器"));
+    task->setGeometry(QRect(122, 0, 121, 81));*/
+    desk_top_acon=new QLabel(centralWidget);
+    desk_top_acon->setGeometry(QRect(2,0,80,70));
+    desk_top_acon->setPixmap(QPixmap("image/desktop.png"));
+    desk_top_acon->setScaledContents(true);
+    desk_top_acon->installEventFilter(this);
+    desk_text=new QLabel(centralWidget);
+    desk_text->setText(QString::fromUtf8("我的电脑"));
+    desk_text->setGeometry(QRect(10,70,60,50));
     this->setCentralWidget(centralWidget);
     fileS=new fileSystem();
     //fileS->setObjectName();
-    connect(this->desk_top,SIGNAL(clicked()),this,SLOT(showFileDialog()));
+    connect(this->desk_text,SIGNAL(clicked()),this,SLOT(showFileDialog()));
+
+    //connect(this->task,SIGNAL(clicked()),this,SLOT(showTask()));
     createActions();
     createMenus();
     createBar();
-
+    menu_task->installEventFilter(this);
+ connect(this->menu_task,SIGNAL(clicked()),this,SLOT(showFileDialog()));
 }
+void MainWindow::showTask()
+{
+    char env[50];
+    strcpy(env,"ProcessManagement");
+    qDebug("env=%s",env);
+    char name[50];
+    QString string=tr("./")+env;
+    strcpy(name,string.toUtf8());
+    qDebug("name=%s",name);
+    int pid;
+    if((pid=fork())==0)
+    {
+        execl(env,name,NULL);
+        return;
+    }
+}
+
 void MainWindow::showFileDialog()
 {
 
@@ -40,11 +71,16 @@ void MainWindow::createBar(){
     barLabel = new QLabel;
     barLabel->setMinimumSize(barLabel->sizeHint());
     barLabel->setAlignment(Qt::AlignHCenter);
-
+    TT = new QAction(this);
+    TT->setObjectName(QString::fromUtf8("action_Recoil"));
+    QIcon icon;
+    icon.addFile(QString::fromUtf8("image/recoil.PNG"), QSize(), QIcon::Normal, QIcon::Off);
+    TT->setIcon(icon);
     QDateTime time = QDateTime::currentDateTime();
     barLabel->setText(time.toString("HH:mm:ss  "));
     statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
     statusBar()->addPermanentWidget(barLabel);
+    statusBar()->addAction(TT);
     statusBar()->setMinimumHeight(25);
     //statusBar()->addWidget(barLabel);
     barLabel->installEventFilter(this);
@@ -97,6 +133,10 @@ void MainWindow::createMenus() {
     fileMenu->addAction(openFile);
     fileMenu->addSeparator();
     fileMenu->addAction(exit);
+    menu_task=new QMenu(menuBar());
+    menu_task->setTitle(QString::fromUtf8("任务管理器"));
+    menuBar()->addMenu(menu_task);
+  //  fileMenu = menuBar()->addMenu(QString::fromUtf8("任务管理器"));
 }
 
 void MainWindow::mousePressEvent ( QMouseEvent * e )//鼠标单击事件响应
@@ -129,6 +169,39 @@ void MainWindow::flashTime(){
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
+
+    if (obj == desk_top_acon) {
+
+        if (event->type() == QEvent::MouseButtonDblClick) {
+            this->showFileDialog();
+
+             //  QMessageBox::information(NULL, QString::fromLocal8Bit("单击"), QString::fromLocal8Bit("单击确定"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+             return true;
+
+         } else {
+
+             return false;
+
+         }
+
+     }
+    if (obj == menu_task) {
+
+        if (event->type() == QEvent::MouseButtonPress) {
+            this->showTask();
+
+             //  QMessageBox::information(NULL, QString::fromLocal8Bit("单击"), QString::fromLocal8Bit("单击确定"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+             return true;
+
+         } else {
+
+             return false;
+
+         }
+
+     }
     if (obj == barLabel) {
         if (event->type() == QEvent::MouseButtonDblClick) { //随便判断什么事件都可以了
             QMessageBox::information(NULL, QString::fromLocal8Bit("time"), QString::fromLocal8Bit(barLabel->text().toLocal8Bit()), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'filesystem.ui'
 **
-** Created: Tue May 8 10:30:29 2012
+** Created: Wed Jun 13 21:03:51 2012
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -15,6 +15,8 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDockWidget>
+#include <QtGui/QGridLayout>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QListView>
 #include <QtGui/QMainWindow>
@@ -52,12 +54,14 @@ public:
     QAction *action_About;
     QAction *action_About_Qt;
     QWidget *centralwidget;
+    QHBoxLayout *horizontalLayout;
+    QDockWidget *dockWidget_2;
+    QWidget *dockWidgetContents_2;
+    QGridLayout *gridLayout;
+    QTreeView *treeView;
     QSplitter *splitter;
     QListView *listView;
     QTableView *tableView;
-    QDockWidget *dockWidget_2;
-    QWidget *dockWidgetContents_2;
-    QTreeView *treeView;
     QStatusBar *statusBar;
     QToolBar *mainToolBar;
     QToolBar *mainToolBar1;
@@ -70,7 +74,7 @@ public:
     {
         if (fileSystem->objectName().isEmpty())
             fileSystem->setObjectName(QString::fromUtf8("fileSystem"));
-        fileSystem->resize(800, 600);
+        fileSystem->resize(800, 477);
         action_Recoil = new QAction(fileSystem);
         action_Recoil->setObjectName(QString::fromUtf8("action_Recoil"));
         QIcon icon;
@@ -138,20 +142,12 @@ public:
         action_About_Qt->setObjectName(QString::fromUtf8("action_About_Qt"));
         centralwidget = new QWidget(fileSystem);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        splitter = new QSplitter(centralwidget);
-        splitter->setObjectName(QString::fromUtf8("splitter"));
-        splitter->setGeometry(QRect(200, 70, 512, 192));
-        splitter->setOrientation(Qt::Horizontal);
-        listView = new QListView(splitter);
-        listView->setObjectName(QString::fromUtf8("listView"));
-        splitter->addWidget(listView);
-        tableView = new QTableView(splitter);
-        tableView->setObjectName(QString::fromUtf8("tableView"));
-        splitter->addWidget(tableView);
+        centralwidget->setEnabled(true);
+        horizontalLayout = new QHBoxLayout(centralwidget);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         dockWidget_2 = new QDockWidget(centralwidget);
         dockWidget_2->setObjectName(QString::fromUtf8("dockWidget_2"));
         dockWidget_2->setEnabled(true);
-        dockWidget_2->setGeometry(QRect(20, 30, 161, 521));
         dockWidget_2->setMouseTracking(true);
         dockWidget_2->setAcceptDrops(false);
         dockWidget_2->setFloating(false);
@@ -161,10 +157,29 @@ public:
         dockWidgetContents_2->setAcceptDrops(false);
         dockWidgetContents_2->setLayoutDirection(Qt::LeftToRight);
         dockWidgetContents_2->setAutoFillBackground(false);
+        gridLayout = new QGridLayout(dockWidgetContents_2);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         treeView = new QTreeView(dockWidgetContents_2);
         treeView->setObjectName(QString::fromUtf8("treeView"));
-        treeView->setGeometry(QRect(20, 0, 121, 221));
+
+        gridLayout->addWidget(treeView, 0, 0, 1, 1);
+
         dockWidget_2->setWidget(dockWidgetContents_2);
+
+        horizontalLayout->addWidget(dockWidget_2);
+
+        splitter = new QSplitter(centralwidget);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setOrientation(Qt::Horizontal);
+        listView = new QListView(splitter);
+        listView->setObjectName(QString::fromUtf8("listView"));
+        splitter->addWidget(listView);
+        tableView = new QTableView(splitter);
+        tableView->setObjectName(QString::fromUtf8("tableView"));
+        splitter->addWidget(tableView);
+
+        horizontalLayout->addWidget(splitter);
+
         fileSystem->setCentralWidget(centralwidget);
         statusBar = new QStatusBar(fileSystem);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -213,19 +228,28 @@ public:
     void retranslateUi(QMainWindow *fileSystem)
     {
         fileSystem->setWindowTitle(QApplication::translate("fileSystem", "\346\210\221\347\232\204\347\224\265\350\204\221", 0, QApplication::UnicodeUTF8));
-        action_Recoil->setText(QApplication::translate("fileSystem", "13123", 0, QApplication::UnicodeUTF8));
-        action_Onward->setText(QApplication::translate("fileSystem", "gagfa", 0, QApplication::UnicodeUTF8));
-        action_Up->setText(QApplication::translate("fileSystem", "567567567", 0, QApplication::UnicodeUTF8));
-        actionPaste_P->setText(QApplication::translate("fileSystem", "aadsfag", 0, QApplication::UnicodeUTF8));
-        action_D->setText(QApplication::translate("fileSystem", "adf", 0, QApplication::UnicodeUTF8));
-        actionCut_T->setText(QApplication::translate("fileSystem", "fad", 0, QApplication::UnicodeUTF8));
-        actionCopy_C->setText(QApplication::translate("fileSystem", "ag", 0, QApplication::UnicodeUTF8));
+        action_Recoil->setText(QApplication::translate("fileSystem", "\345\220\216\351\200\200", 0, QApplication::UnicodeUTF8));
+        action_Onward->setText(QApplication::translate("fileSystem", "\345\220\221\345\211\215", 0, QApplication::UnicodeUTF8));
+        action_Up->setText(QApplication::translate("fileSystem", "\345\220\221\344\270\212", 0, QApplication::UnicodeUTF8));
+        actionPaste_P->setText(QApplication::translate("fileSystem", "\347\262\230\350\264\264", 0, QApplication::UnicodeUTF8));
+        actionPaste_P->setShortcut(QApplication::translate("fileSystem", "Ctrl+V", 0, QApplication::UnicodeUTF8));
+        action_D->setText(QApplication::translate("fileSystem", "\345\210\240\351\231\244", 0, QApplication::UnicodeUTF8));
+        actionCut_T->setText(QApplication::translate("fileSystem", "\345\211\252\345\210\207", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionCut_T->setToolTip(QApplication::translate("fileSystem", "\345\211\252\345\210\207", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        actionCut_T->setShortcut(QApplication::translate("fileSystem", "Ctrl+X", 0, QApplication::UnicodeUTF8));
+        actionCopy_C->setText(QApplication::translate("fileSystem", "\345\244\215\345\210\266", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionCopy_C->setToolTip(QApplication::translate("fileSystem", "\345\244\215\345\210\266", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        actionCopy_C->setShortcut(QApplication::translate("fileSystem", "Ctrl+C", 0, QApplication::UnicodeUTF8));
         action_dis->setText(QApplication::translate("fileSystem", "agafds", 0, QApplication::UnicodeUTF8));
         action_New_File->setText(QApplication::translate("fileSystem", "New File", 0, QApplication::UnicodeUTF8));
         action_New_Folder->setText(QApplication::translate("fileSystem", "&New Folder", 0, QApplication::UnicodeUTF8));
         action_Quit->setText(QApplication::translate("fileSystem", "&Quit", 0, QApplication::UnicodeUTF8));
         actionRename_R->setText(QApplication::translate("fileSystem", "&Rename(R)", 0, QApplication::UnicodeUTF8));
-        Proper->setText(QApplication::translate("fileSystem", "About", 0, QApplication::UnicodeUTF8));
+        Proper->setText(QApplication::translate("fileSystem", "\345\261\236\346\200\247", 0, QApplication::UnicodeUTF8));
         action_hide->setText(QApplication::translate("fileSystem", "\346\230\276\347\244\272\351\232\220\350\227\217\346\226\207\344\273\266", 0, QApplication::UnicodeUTF8));
         action_nohide->setText(QApplication::translate("fileSystem", "\344\270\215\346\230\276\347\244\272\351\232\220\350\227\217\346\226\207\344\273\266", 0, QApplication::UnicodeUTF8));
         action->setText(QApplication::translate("fileSystem", "\345\234\250\347\273\210\347\253\257\346\211\223\345\274\200", 0, QApplication::UnicodeUTF8));

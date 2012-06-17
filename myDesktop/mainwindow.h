@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtGui>
+#include <QKeyEvent>
 #include <setdesktop.h>
 #include <QProcess>
 #include "mylabel.h"
@@ -33,7 +34,7 @@ private slots:
     void Desktop();
     void flashTime();
     void showFileDialog();
-
+    void showTask();
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
@@ -52,12 +53,19 @@ private:
     QAction *copy;
     QAction *openFile;
     QAction *cut;
+    QAction *TT;
     QAction *paste;
     QAction *desktop;
     QPixmap *background;
     QLabel *barLabel;
     QTimer *readTimer;
     QPushButton *desk_top;
+    QPushButton *task;
+    QLabel *desk_top_acon;
+    QLabel *desk_text;
+    QToolButton *a;
+    QMenu *menu_task;
+    QStatusBar *statusbar;
     QWidget *centralWidget;
     fileSystem *fileS;
 };

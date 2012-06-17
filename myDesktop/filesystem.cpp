@@ -15,7 +15,7 @@ fileSystem::fileSystem(QWidget *parent) :
     QStringList filter;
     dirModel=new QDirModel(filter,QDir::Dirs|QDir::NoDotAndDotDot,QDir::DirsFirst|QDir::Name|QDir::Type);
     listModel=new TableModel(0,5);
-    button=new QPushButton(tr("确定"));
+    button=new QPushButton("确定");
     button->setDefault(true);
     ui->treeView->setModel(dirModel);
     ui->treeView->hideColumn(1);
@@ -89,6 +89,7 @@ fileSystem::fileSystem(QWidget *parent) :
     connect(ui->listView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(changeIndex(QModelIndex)));
     connect(comboBox,SIGNAL(activated(int)),this,SLOT(chooseMode(int)));//切换3种显示方式的
     connect(selectionModel,SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),this,SLOT(isSelected(const QModelIndex&,const QModelIndex&)));
+    //ui->listView
 }
 
 fileSystem::~fileSystem()
