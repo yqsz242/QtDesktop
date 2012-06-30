@@ -12,29 +12,26 @@ HEADERS += mainwindow.h \
     setdesktop.h \
     setdesktop.h \
     mylabel.h \
-    filesystem.h \
-    model.h \
-    proper.h
-SOURCES += main.cpp mainwindow.cpp \
-    setdesktop.cpp \
-    mylabel.cpp \
-    filesystem.cpp \
-    model.cpp \
-    proper.cpp
     xwindowfinder.h \
     header.h \
     frame.h \
     defs.h \
-    border.h
+    border.h \
+    proper.h \
+    model.h \
+    filesystem.h
 SOURCES += main.cpp mainwindow.cpp \
     setdesktop.cpp \
     mylabel.cpp \
     xwindowfinder.cpp \
     header.cpp \
     frame.cpp \
-    border.cpp
+    border.cpp \
+    proper.cpp \
+    model.cpp \
+    filesystem.cpp
 
 FORMS += \
     setdesktop.ui \
-    filesystem.ui \
-    proper.ui
+    proper.ui \
+    filesystem.ui

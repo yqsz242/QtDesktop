@@ -24,6 +24,7 @@ public:
     void update_style();
     void create_borders();
     void active();
+    void set_sizeAndpos(int x, int y, int w,int h);
     QString cl_name()
         {
             return(wm_name);
@@ -52,6 +53,12 @@ public slots:
     void dragEnterEvent(QDragEnterEvent *);
     void dragMoveEvent(QDragMoveEvent *);
     void dropEvent(QDropEvent *);
+    void close_frame();
+
+signals:
+    void pressFrame(QMouseEvent *,Frame *);
+    void close_close(Frame *);
+    void close_this();
 
 private:
 

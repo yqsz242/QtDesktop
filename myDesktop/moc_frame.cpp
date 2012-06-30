@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'frame.h'
 **
-** Created: Sun May 6 18:59:47 2012
+** Created: Sun Jun 17 13:03:30 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,38 +23,46 @@ static const uint qt_meta_data_Frame[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       3,       // signalCount
+
+ // signals: signature, parameters, type, tag, flags
+       9,    7,    6,    6, 0x05,
+      41,    6,    6,    6, 0x05,
+      61,    6,    6,    6, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-       7,    6,    6,    6, 0x0a,
-      35,    6,    6,    6, 0x0a,
-      62,    6,    6,    6, 0x0a,
-      94,    6,    6,    6, 0x0a,
-     125,    6,    6,    6, 0x0a,
-     158,    6,    6,    6, 0x0a,
-     190,    6,    6,    6, 0x0a,
-     221,    6,    6,    6, 0x0a,
-     251,    6,    6,    6, 0x0a,
-     277,    6,    6,    6, 0x0a,
-     302,    6,    6,    6, 0x0a,
-     327,    6,    6,    6, 0x0a,
-     351,    6,    6,    6, 0x0a,
-     364,    6,    6,    6, 0x0a,
-     378,    6,    6,    6, 0x0a,
-     391,    6,    6,    6, 0x0a,
-     424,    6,    6,    6, 0x0a,
-     455,    6,    6,    6, 0x0a,
+      74,    6,    6,    6, 0x0a,
+     102,    6,    6,    6, 0x0a,
+     129,    6,    6,    6, 0x0a,
+     161,    6,    6,    6, 0x0a,
+     192,    6,    6,    6, 0x0a,
+     225,    6,    6,    6, 0x0a,
+     257,    6,    6,    6, 0x0a,
+     288,    6,    6,    6, 0x0a,
+     318,    6,    6,    6, 0x0a,
+     344,    6,    6,    6, 0x0a,
+     369,    6,    6,    6, 0x0a,
+     394,    6,    6,    6, 0x0a,
+     418,    6,    6,    6, 0x0a,
+     431,    6,    6,    6, 0x0a,
+     445,    6,    6,    6, 0x0a,
+     458,    6,    6,    6, 0x0a,
+     491,    6,    6,    6, 0x0a,
+     522,    6,    6,    6, 0x0a,
+     545,    6,    6,    6, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_Frame[] = {
-    "Frame\0\0press_top_mid(QMouseEvent*)\0"
+    "Frame\0\0,\0pressFrame(QMouseEvent*,Frame*)\0"
+    "close_close(Frame*)\0close_this()\0"
+    "press_top_mid(QMouseEvent*)\0"
     "move_top_mid(QMouseEvent*)\0"
     "press_bottom_left(QMouseEvent*)\0"
     "move_bottom_left(QMouseEvent*)\0"
@@ -69,7 +77,7 @@ static const char qt_meta_stringdata_Frame[] = {
     "maximize_it()\0iconify_it()\0"
     "dragEnterEvent(QDragEnterEvent*)\0"
     "dragMoveEvent(QDragMoveEvent*)\0"
-    "dropEvent(QDropEvent*)\0"
+    "dropEvent(QDropEvent*)\0close_frame()\0"
 };
 
 const QMetaObject Frame::staticMetaObject = {
@@ -101,28 +109,52 @@ int Frame::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: press_top_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 1: move_top_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 2: press_bottom_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 3: move_bottom_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 4: press_bottom_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 5: move_bottom_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 6: press_bottom_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 7: move_bottom_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 8: press_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 9: move_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 10: press_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 11: move_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 12: destroy_it(); break;
-        case 13: maximize_it(); break;
-        case 14: iconify_it(); break;
-        case 15: dragEnterEvent((*reinterpret_cast< QDragEnterEvent*(*)>(_a[1]))); break;
-        case 16: dragMoveEvent((*reinterpret_cast< QDragMoveEvent*(*)>(_a[1]))); break;
-        case 17: dropEvent((*reinterpret_cast< QDropEvent*(*)>(_a[1]))); break;
+        case 0: pressFrame((*reinterpret_cast< QMouseEvent*(*)>(_a[1])),(*reinterpret_cast< Frame*(*)>(_a[2]))); break;
+        case 1: close_close((*reinterpret_cast< Frame*(*)>(_a[1]))); break;
+        case 2: close_this(); break;
+        case 3: press_top_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 4: move_top_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 5: press_bottom_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 6: move_bottom_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 7: press_bottom_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 8: move_bottom_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 9: press_bottom_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 10: move_bottom_mid((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 11: press_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 12: move_right((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 13: press_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 14: move_left((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 15: destroy_it(); break;
+        case 16: maximize_it(); break;
+        case 17: iconify_it(); break;
+        case 18: dragEnterEvent((*reinterpret_cast< QDragEnterEvent*(*)>(_a[1]))); break;
+        case 19: dragMoveEvent((*reinterpret_cast< QDragMoveEvent*(*)>(_a[1]))); break;
+        case 20: dropEvent((*reinterpret_cast< QDropEvent*(*)>(_a[1]))); break;
+        case 21: close_frame(); break;
         default: ;
         }
-        _id -= 18;
+        _id -= 22;
     }
     return _id;
+}
+
+// SIGNAL 0
+void Frame::pressFrame(QMouseEvent * _t1, Frame * _t2)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void Frame::close_close(Frame * _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void Frame::close_this()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, 0);
 }
 QT_END_MOC_NAMESPACE

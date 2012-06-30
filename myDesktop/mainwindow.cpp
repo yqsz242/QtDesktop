@@ -2,7 +2,6 @@
 #include <QLabel>
 #include <QDesktopWidget>
 
-
 #include "mainwindow.h"
 
 MainWindow::MainWindow()
@@ -11,49 +10,50 @@ MainWindow::MainWindow()
     //int height = QApplication::desktop()->height();
     ((QMainWindow*)this)->showFullScreen();
     QPalette palette;
-    background = new QPixmap("image/01.jpg");
-    QImage *asd = new QImage("image/01.jpg");
+    background = new QPixmap("/home/saubao/Desktop/share/QtDesktop/myDesktop/image/01.jpg");
+    QImage *asd = new QImage("/home/saubao/Desktop/share/QtDesktop/myDesktop/image/01.jpg");
     palette.setBrush(((QMainWindow*)this)->backgroundRole(), QBrush(*asd));
     ((QMainWindow*)this)->setPalette(palette);
-<<<<<<< HEAD
-    //this->addDockWidget();
-    centralWidget=new QWidget(this);
-   /* desk_top=new QPushButton(centralWidget);
-    desk_top->setText(QString::fromUtf8("我的电脑"));
-    desk_top->setGeometry(QRect(10, 0, 121, 81));
-    task=new QPushButton(centralWidget);
-    task->setText(QString::fromUtf8("任务管理器"));
-    task->setGeometry(QRect(122, 0, 121, 81));*/
-    desk_top_acon=new QLabel(centralWidget);
-    desk_top_acon->setGeometry(QRect(2,0,80,70));
-    desk_top_acon->setPixmap(QPixmap("image/desktop.png"));
-    desk_top_acon->setScaledContents(true);
-    desk_top_acon->installEventFilter(this);
-    desk_text=new QLabel(centralWidget);
-    desk_text->setText(QString::fromUtf8("我的电脑"));
-    desk_text->setGeometry(QRect(10,70,60,50));
-    this->setCentralWidget(centralWidget);
-    fileS=new fileSystem();
-    //fileS->setObjectName();
-<<<<<<< HEAD
-    connect(this->desk_text,SIGNAL(clicked()),this,SLOT(showFileDialog()));
 
-    //connect(this->task,SIGNAL(clicked()),this,SLOT(showTask()));
-=======
-    connect(this->desk_top,SIGNAL(clicked()),this,SLOT(showFileDialog()));
-=======
+    //<<<<<<< HEAD
+        //this->addDockWidget();
+        centralWidget=new QWidget(this);
+         /*desk_top=new QPushButton(centralWidget);
+            desk_top->setText(QString::fromUtf8("我的电脑"));
+            desk_top->setGeometry(QRect(10, 0, 121, 81));
+            task=new QPushButton(centralWidget);
+            task->setText(QString::fromUtf8("任务管理器"));
+            task->setGeometry(QRect(122, 0, 121, 81));*/
+            desk_top_acon=new QLabel(centralWidget);
+            desk_top_acon->setGeometry(QRect(2,0,80,70));
+            desk_top_acon->setPixmap(QPixmap("/home/saubao/Desktop/share/QtDesktop/myDesktop/image/desktop.png"));
+            desk_top_acon->setScaledContents(true);
+            desk_top_acon->installEventFilter(this);
+            desk_text=new QLabel(centralWidget);
+            desk_text->setText(QString::fromUtf8("我的电脑"));
+            desk_text->setGeometry(QRect(10,70,60,50));
+            this->setCentralWidget(centralWidget);
+            fileS=new fileSystem();
+            //fileS->setObjectName();
+        //connect(this->desk_top,SIGNAL(clicked()),this,SLOT(showFileDialog()));
+        connect(this->desk_text,SIGNAL(clicked()),this,SLOT(showFileDialog()));
+    //=======
 
     procs = new QVector<Frame*>();
     proc_bars = new QVector<QLabel*>();
 
->>>>>>> dc3f3938bc0f68e26edbb20aeccca904bfc32cbe
->>>>>>> 2b6bbdfd04d126a911f79bf21b40df8acc7f39cd
     createActions();
     createMenus();
     createBar();
     menu_task->installEventFilter(this);
- connect(this->menu_task,SIGNAL(clicked()),this,SLOT(showFileDialog()));
+    connect(this->menu_task,SIGNAL(clicked()),this,SLOT(showFileDialog()));
+
+    this->installEventFilter(this);
+    mov=1;
+
+    this->setFocus();
 }
+
 void MainWindow::showTask()
 {
     char env[50];
@@ -85,7 +85,7 @@ void MainWindow::createBar(){
     TT = new QAction(this);
     TT->setObjectName(QString::fromUtf8("action_Recoil"));
     QIcon icon;
-    icon.addFile(QString::fromUtf8("image/recoil.PNG"), QSize(), QIcon::Normal, QIcon::Off);
+    icon.addFile(QString::fromUtf8("/home/saubao/Desktop/share/QtDesktop/myDesktop/image/recoil.PNG"), QSize(), QIcon::Normal, QIcon::Off);
     TT->setIcon(icon);
     QDateTime time = QDateTime::currentDateTime();
     barLabel->setText(time.toString("HH:mm:ss  "));
@@ -128,11 +128,13 @@ void MainWindow::createActions() {
     desktop = new QAction(tr("&Desktop"),this);
     desktop->setStatusTip(tr("Set your desktop"));
     connect(desktop,SIGNAL(triggered()),this,SLOT(Desktop()));
+    //start
     QIcon icon ;
-    icon.addFile(QString::fromUtf8("images/desktop.png"),QSize(),QIcon::Normal,QIcon::Off);
+    icon.addFile(QString::fromUtf8("/home/saubao/Desktop/share/QtDesktop/myDesktop/image/desktop.png"),QSize(),QIcon::Normal,QIcon::Off);
     openFile=new QAction(tr("local file system"),this);
     desktop->setStatusTip(tr("open local file system"));
     openFile->setIcon(icon);
+    //end
 }
 
 void MainWindow::createMenus() {
@@ -143,15 +145,14 @@ void MainWindow::createMenus() {
     // 一个QAction可以被多个地方使用, 与Java的Action一样.
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(Gvim);
+    fileMenu->addAction(openFile);
     fileMenu->addSeparator();
     fileMenu->addAction(shutdown);
-    fileMenu->addAction(openFile);
     fileMenu->addSeparator();
     fileMenu->addAction(exit);
     menu_task=new QMenu(menuBar());
     menu_task->setTitle(QString::fromUtf8("任务管理器"));
     menuBar()->addMenu(menu_task);
-  //  fileMenu = menuBar()->addMenu(QString::fromUtf8("任务管理器"));
 }
 
 void MainWindow::mousePressEvent ( QMouseEvent * e )//鼠标单击事件响应
@@ -184,41 +185,39 @@ void MainWindow::flashTime(){
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
-<<<<<<< HEAD
-
     if (obj == desk_top_acon) {
 
-        if (event->type() == QEvent::MouseButtonDblClick) {
-            this->showFileDialog();
+            if (event->type() == QEvent::MouseButtonDblClick) {
+                this->showFileDialog();
 
-             //  QMessageBox::information(NULL, QString::fromLocal8Bit("单击"), QString::fromLocal8Bit("单击确定"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+                 //  QMessageBox::information(NULL, QString::fromLocal8Bit("单击"), QString::fromLocal8Bit("单击确定"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
-             return true;
+                 return true;
 
-         } else {
+             } else {
 
-             return false;
+                 return false;
+
+             }
+
+         }
+        if (obj == menu_task) {
+
+            if (event->type() == QEvent::MouseButtonPress) {
+                this->showTask();
+
+                 //  QMessageBox::information(NULL, QString::fromLocal8Bit("单击"), QString::fromLocal8Bit("单击确定"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+                 return true;
+
+             } else {
+
+                 return false;
+
+             }
 
          }
 
-     }
-    if (obj == menu_task) {
-
-        if (event->type() == QEvent::MouseButtonPress) {
-            this->showTask();
-
-             //  QMessageBox::information(NULL, QString::fromLocal8Bit("单击"), QString::fromLocal8Bit("单击确定"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-
-             return true;
-
-         } else {
-
-             return false;
-
-         }
-
-     }
-=======
     QVector<Frame*>::iterator it1 = procs->begin();
     for(QVector<QLabel*>::iterator it2 = proc_bars->begin();it2!=proc_bars->end();it2++)
     {
@@ -227,13 +226,13 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             if (event->type() == QEvent::MouseButtonPress)
             {
                 (*it1)->active();
+                topFrame = (*it1);
                 return true;
             }
             break;
         }
         it1++;
     }
->>>>>>> 2b6bbdfd04d126a911f79bf21b40df8acc7f39cd
     if (obj == barLabel) {
         if (event->type() == QEvent::MouseButtonDblClick) { //随便判断什么事件都可以了
             QMessageBox::information(NULL, QString::fromLocal8Bit("time"), QString::fromLocal8Bit(barLabel->text().toLocal8Bit()), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
@@ -253,6 +252,44 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         // pass the event on to the parent class
         return QMainWindow::eventFilter(obj, event);
     }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+    switch(e->key())
+    {
+        case Qt::Key_Left:
+            cout<<"1"<<endl;
+            if(topFrame){
+                topFrame->set_sizeAndpos(0,25,QApplication::desktop()->width()/2,QApplication::desktop()->height()-50);
+            }
+            break;
+        case Qt::Key_Right:
+            cout<<"1"<<endl;
+            if(topFrame){
+                topFrame->set_sizeAndpos(QApplication::desktop()->width()/2,25,QApplication::desktop()->width()/2,QApplication::desktop()->height()-50);
+            }
+            break;
+    }
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *e)
+{
+    switch(e->key())
+    {
+        case Qt::Key_Meta:
+            if(mov == 1)
+                ;
+            mov = 0;
+            break;
+    }
+}
+
+void MainWindow::activeFrame(QMouseEvent *e,Frame *f)
+{
+    topFrame = f;
+    cout <<"hello"<<endl;
+    this->setFocus();
 }
 
 void MainWindow::Copy(){
@@ -292,6 +329,9 @@ void MainWindow::Exit(){
 void MainWindow::gvim(){
     Frame *myFrame = new Frame("xterm",this);
     myFrame->show();
+    topFrame = myFrame;
+    connect(myFrame,SIGNAL(pressFrame(QMouseEvent*,Frame*)),this,SLOT(activeFrame(QMouseEvent*,Frame*)));
+    connect(myFrame,SIGNAL(close_close(Frame *)),this,SLOT(closeFrame(Frame *)));
     procs->push_back(myFrame);
     QLabel* pbar = new QLabel;
     pbar->setFixedSize(50,23);
@@ -302,6 +342,22 @@ void MainWindow::gvim(){
     pbar->setPalette(palette);
     pbar->installEventFilter(this);
     statusBar()->addPermanentWidget(pbar);
+}
+
+
+void MainWindow::closeFrame(Frame *f){
+    QVector<Frame*>::iterator it1 = procs->begin();
+    for(QVector<QLabel*>::iterator it2 = proc_bars->begin();it2!=proc_bars->end();it2++)
+    {
+        if(f == (*it1))
+        {
+            procs->erase(it1);
+            ((QLabel*)(*it2))->setVisible(false);
+            proc_bars->erase(it2);
+            break;
+        }
+        it1++;
+    }
 }
 
 //void MainWindow::active(){

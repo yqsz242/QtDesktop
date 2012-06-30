@@ -20,7 +20,7 @@ Header::Header(const QPixmap &icn, const QString &nm, QWidget *parent) : QWidget
     this->setPalette(palette);
     QPushButton *btnFlat = new QPushButton("", this);
     btnFlat->setGeometry(QRect(0, 0, 15, 15));
-    QPixmap adultpix("image/close.png");
+    QPixmap adultpix("/home/saubao/Desktop/share/QtDesktop/myDesktop/image/close.png");
     btnFlat->setIcon(adultpix);
     //btnFlat->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     btnFlat->setIconSize(adultpix.size());

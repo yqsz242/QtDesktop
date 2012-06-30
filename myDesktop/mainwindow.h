@@ -2,28 +2,23 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-<<<<<<< HEAD
-#include <QtGui>
-#include <QKeyEvent>
-=======
+
+#include "defs.h"
 //#include <QtGui>
->>>>>>> 2b6bbdfd04d126a911f79bf21b40df8acc7f39cd
 #include <setdesktop.h>
 #include <QProcess>
 #include "mylabel.h"
+#include "frame.h"
+
 //<<<<<<< HEAD
 #include "filesystem.h"
-#include "properdialog.h"
 #include <QtGui/QToolBar>
 #include<QtGui/QWidget>
 #include<QtGui/QMenuBar>
 #include<QDialog>
 //=======
-#include "frame.h"
 
-#include "defs.h"
 
->>>>>>> dc3f3938bc0f68e26edbb20aeccca904bfc32cbe
 class QAction;
 class QLabel;
 
@@ -44,10 +39,17 @@ private slots:
     void Paste();
     void Desktop();
     void flashTime();
+    void activeFrame(QMouseEvent *,Frame *);
+    //start
     void showFileDialog();
     void showTask();
+
+    void closeFrame(Frame *f);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
+    void keyPressEvent(QKeyEvent *e);
+    void keyReleaseEvent(QKeyEvent *e);
 
 private:
     void createMenus();
@@ -62,7 +64,6 @@ private:
     QAction *exit;
     QLabel *label;
     QAction *copy;
-    QAction *openFile;
     QAction *cut;
     QAction *TT;
     QAction *paste;
@@ -70,20 +71,23 @@ private:
     QPixmap *background;
     QLabel *barLabel;
     QTimer *readTimer;
-//<<<<<<< HEAD
-    QPushButton *desk_top;
+    QVector<Frame*> *procs;
+    QVector<QLabel*> *proc_bars;
+    int mov;
+    Frame* topFrame;
+
+    //<<<<<<< HEAD
     QPushButton *task;
     QLabel *desk_top_acon;
     QLabel *desk_text;
     QToolButton *a;
     QMenu *menu_task;
     QStatusBar *statusbar;
+    QAction *openFile;
+    QPushButton *desk_top;
     QWidget *centralWidget;
     fileSystem *fileS;
-//=======
-    QVector<Frame*> *procs;
-    QVector<QLabel*> *proc_bars;
-//>>>>>>> dc3f3938bc0f68e26edbb20aeccca904bfc32cbe
+    //=======
 };
 
 #endif

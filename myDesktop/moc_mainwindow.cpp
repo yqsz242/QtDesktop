@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sun May 6 19:04:08 2012
+** Created: Thu Jun 28 20:36:20 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -39,6 +39,10 @@ static const uint qt_meta_data_MainWindow[] = {
       50,   11,   11,   11, 0x08,
       58,   11,   11,   11, 0x08,
       68,   11,   11,   11, 0x08,
+      82,   80,   11,   11, 0x08,
+     115,   11,   11,   11, 0x08,
+     132,   11,   11,   11, 0x08,
+     145,  143,   11,   11, 0x08,
 
        0        // eod
 };
@@ -46,7 +50,9 @@ static const uint qt_meta_data_MainWindow[] = {
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0shutDown()\0Exit()\0gvim()\0"
     "Copy()\0Cut()\0Paste()\0Desktop()\0"
-    "flashTime()\0"
+    "flashTime()\0,\0activeFrame(QMouseEvent*,Frame*)\0"
+    "showFileDialog()\0showTask()\0f\0"
+    "closeFrame(Frame*)\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -86,9 +92,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 5: Paste(); break;
         case 6: Desktop(); break;
         case 7: flashTime(); break;
+        case 8: activeFrame((*reinterpret_cast< QMouseEvent*(*)>(_a[1])),(*reinterpret_cast< Frame*(*)>(_a[2]))); break;
+        case 9: showFileDialog(); break;
+        case 10: showTask(); break;
+        case 11: closeFrame((*reinterpret_cast< Frame*(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 8;
+        _id -= 12;
     }
     return _id;
 }

@@ -153,7 +153,8 @@ void Frame::create_borders()
     // top right (icon)
     connect(tr_bdr, SIGNAL(mouse_left_press()), this, SLOT(destroy_it()));
     // top mid (title bar)
-    connect(tm_bdr,SIGNAL(frame_close()),this,SLOT(close()));
+    connect(tm_bdr,SIGNAL(frame_close()),this,SLOT(close_frame()));
+    connect(this,SIGNAL(close_this()),this,SLOT(close()));
     connect(tm_bdr, SIGNAL(mouse_double_click()), this, SLOT(iconify_it()));
     connect(tm_bdr, SIGNAL(mouse_left_press(QMouseEvent *)), this, SLOT(press_top_mid(QMouseEvent *)));
     connect(tm_bdr, SIGNAL(mouse_right_press()), this, SLOT(maximize_it()));
@@ -175,11 +176,18 @@ void Frame::create_borders()
     connect(r_bdr, SIGNAL(mouse_move(QMouseEvent *)), this, SLOT(move_right(QMouseEvent *)));
 }
 
+void Frame::close_frame()
+{
+    emit close_close(this);
+    emit close_this();
+}
+
 void Frame::press_top_mid(QMouseEvent *event)
 {
     mousepos = event->pos()+tm_bdr->pos();  // offset
     XMapRaised(QX11Info::display(), winId());
     XMapRaised(QX11Info::display(),c_win);
+    emit pressFrame(event,this);
 }
 
 void Frame::move_top_mid(QMouseEvent *event)
@@ -195,6 +203,7 @@ void Frame::press_bottom_left(QMouseEvent *event)
     mousepos = event->globalPos();
     XMapRaised(QX11Info::display(), winId());
     XMapRaised(QX11Info::display(),c_win);
+    emit pressFrame(event,this);
 }
 
 void Frame::move_bottom_left(QMouseEvent *event)
@@ -227,6 +236,7 @@ void Frame::press_bottom_right(QMouseEvent *event)
     mousepos = event->globalPos();
     XMapRaised(QX11Info::display(), winId());
     XMapRaised(QX11Info::display(),c_win);
+    emit pressFrame(event,this);
 }
 
 void Frame::move_bottom_right(QMouseEvent *event)
@@ -248,6 +258,7 @@ void Frame::press_bottom_mid(QMouseEvent *event)
     mousepos = event->globalPos();
     XMapRaised(QX11Info::display(), winId());
     XMapRaised(QX11Info::display(),c_win);
+    emit pressFrame(event,this);
 }
 
 void Frame::move_bottom_mid(QMouseEvent *event)
@@ -269,6 +280,7 @@ void Frame::press_right(QMouseEvent *event)
     mousepos = event->globalPos();
     XMapRaised(QX11Info::display(), winId());
     XMapRaised(QX11Info::display(),c_win);
+    emit pressFrame(event,this);
 }
 
 void Frame::move_right(QMouseEvent *event)
@@ -290,6 +302,7 @@ void Frame::press_left(QMouseEvent *event)
     mousepos = event->globalPos();
     XMapRaised(QX11Info::display(), winId());
     XMapRaised(QX11Info::display(),c_win);
+    emit pressFrame(event,this);
 }
 
 void Frame::move_left(QMouseEvent *event)
@@ -304,6 +317,14 @@ void Frame::move_left(QMouseEvent *event)
     XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w*3, resh-diff_border_h); //client
     //XMoveWindow(QX11Info::display(), c_win, resx, y());
     mousepos = event->globalPos();
+}
+
+void Frame::set_sizeAndpos(int x, int y, int w, int h)
+{
+    move(x, y);
+    resize(w, h);
+    XResizeWindow(QX11Info::display(), c_win, w-diff_border_w*3, h-diff_border_h); //client
+    //XMoveWindow(QX11Info::display(), c_win, resx, y());
 }
 
 void Frame::dragEnterEvent(QDragEnterEvent *event)
